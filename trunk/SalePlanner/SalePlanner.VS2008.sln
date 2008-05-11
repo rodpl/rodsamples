@@ -1,0 +1,32 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 10.00
+# Visual Studio 2008
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SalePlanner.Core", "src\app\SalePlanner.Core\SalePlanner.Core.csproj", "{3ABC37E5-AFBD-4A5C-AF04-DDEE84F16B56}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SalePlanner.Web.UI.ASPNET", "src\app\SalePlanner.Web.UI.ASPNET\SalePlanner.Web.UI.ASPNET.csproj", "{314D81A8-3244-4D2D-8000-65FC33793B45}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SalePlanner.Core.Tests", "src\test\SalePlanner.Core.Tests\SalePlanner.Core.Tests.csproj", "{01B4F79A-532A-422B-8898-5DD89BE0942D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{3ABC37E5-AFBD-4A5C-AF04-DDEE84F16B56}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3ABC37E5-AFBD-4A5C-AF04-DDEE84F16B56}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3ABC37E5-AFBD-4A5C-AF04-DDEE84F16B56}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3ABC37E5-AFBD-4A5C-AF04-DDEE84F16B56}.Release|Any CPU.Build.0 = Release|Any CPU
+		{314D81A8-3244-4D2D-8000-65FC33793B45}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{314D81A8-3244-4D2D-8000-65FC33793B45}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{314D81A8-3244-4D2D-8000-65FC33793B45}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{314D81A8-3244-4D2D-8000-65FC33793B45}.Release|Any CPU.Build.0 = Release|Any CPU
+		{01B4F79A-532A-422B-8898-5DD89BE0942D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{01B4F79A-532A-422B-8898-5DD89BE0942D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{01B4F79A-532A-422B-8898-5DD89BE0942D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{01B4F79A-532A-422B-8898-5DD89BE0942D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
