@@ -3,16 +3,15 @@ using System.Collections.Generic;
 namespace SalePlanner.Domain
 {
 	/// <summary>
-	/// Class represents single period in period hierarchy.
+	/// Class represents single territorial region in hierarchy.
 	/// It will be used as one of dimension for sale planning.
-	/// <remarks>Usually period should has date range but for this example I don't need that.</remarks>
 	/// </summary>
-	public class Period : Hierarchical
+	public class Region
 	{
 		public string Name { get; set; }
-		public Period Parent { get; set; }
+		public Region Parent { get; set; }
 
-		public IList<Period> Children
+		public IList<Region> Children
 		{
 			get { return _children.AsReadOnly(); }
 		}
@@ -27,16 +26,16 @@ namespace SalePlanner.Domain
 			get { return _children.Count == 0; }
 		}
 
-		private readonly List<Period> _children = new List<Period>();
+		private readonly List<Region> _children = new List<Region>();
 
 		#region contructors...
 
-		public Period(string name)
+		public Region(string name)
 		{
 			Name = name;
 		}
 
-		public Period(string name, Period parent)
+		public Region(string name, Region parent)
 			: this(name)
 		{
 			Parent = parent;
@@ -45,7 +44,7 @@ namespace SalePlanner.Domain
 
 		#endregion
 
-		public void AddChild(Period child)
+		public void AddChild(Region child)
 		{
 			if (!_children.Contains(child))
 				_children.Add(child);

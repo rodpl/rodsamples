@@ -41,8 +41,10 @@
   <ItemGroup>
     <Compile Include="DataAccess\PeriodRepository.cs" />
     <Compile Include="DataAccess\Repository.cs" />
+    <Compile Include="Domain\EstimatedSaleCube.cs" />
     <Compile Include="Domain\Hierarchical.cs" />
     <Compile Include="Domain\Period.cs" />
+    <Compile Include="Domain\Region.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
