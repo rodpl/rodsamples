@@ -84,6 +84,11 @@ namespace SalePlanner.Domain
 		}
 
 		#endregion
+
+		public EstimatedSaleAllocation FindFor(Region region, Period period)
+		{
+			return EstimatedSaleAllocation.NULL;
+		}
 	}
 
 	/// <summary>
@@ -99,6 +104,9 @@ namespace SalePlanner.Domain
 
 		#region contructors...
 
+		private EstimatedSaleAllocation()
+		{}
+
 		public EstimatedSaleAllocation(decimal amount, Region region, Period period)
 		{
 			if (region == null) throw new ArgumentNullException("region");
@@ -107,6 +115,16 @@ namespace SalePlanner.Domain
 			Amount = amount;
 			RegionDimension = region;
 			PeriodDimension = period;
+		}
+
+		#endregion
+
+		public static EstimatedSaleAllocation NULL = new NullEstimatedSaleAllocation();
+
+		#region Nested type: NullEstimatedSaleAllocation
+
+		public class NullEstimatedSaleAllocation : EstimatedSaleAllocation
+		{
 		}
 
 		#endregion

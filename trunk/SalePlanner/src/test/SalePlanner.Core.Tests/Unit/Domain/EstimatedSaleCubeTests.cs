@@ -99,6 +99,18 @@ namespace SalePlanner.Core.Tests.Unit.Domain
 			Assert.That(model.FreeAmount, Is.EqualTo(amount));
 		}
 
+		[Test]
+		public void FindFor_CriteriesForNonExistingYetAllocation_ReturnsNullAllocationObject()
+		{
+			var model = EstimatedSaleCubeMother.CreateSimpleModel();
+
+			var regionWarsaw = model.RegionRoot.Find(r => r.Name.Equals("Warsaw"));
+			Assert.That(regionWarsaw, Is.Not.Null);
+			var periodRoot = model.PeriodRoot;
+
+			var allocation = model.FindFor(regionWarsaw, periodRoot);
+			Assert.That(allocation, Is.EqualTo(EstimatedSaleAllocation.NULL));
+		}
 	}
 
 	public static class EstimatedSaleCubeMother
