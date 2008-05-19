@@ -24,9 +24,9 @@ namespace SalePlanner.Domain
 		{
 			get
 			{
-				return (from dim in (Allocations as List<EstimatedSaleAllocation>)
-						where dim.RegionDimension.IsLeaf
-						select (dim.AllocatedAmount)).Sum();
+				return (from allocation in Allocations
+						where allocation.RegionDimension.IsLeaf
+						select (allocation.Amount)).Sum();
 			}
 		}
 
@@ -38,7 +38,9 @@ namespace SalePlanner.Domain
 		{
 			get
 			{
-				return 0m;
+				return (from allocation in Allocations
+						where allocation.RegionDimension.IsLeaf == false
+						select (allocation.Amount)).Sum();
 			}
 		}
 
@@ -89,8 +91,7 @@ namespace SalePlanner.Domain
 	/// </summary>
 	public class EstimatedSaleAllocation
 	{
-		public decimal AllocatedAmount { get; set; }
-		public decimal FreeAmount { get; set; }
+		public decimal Amount { get; set; }
 
 		// Dimensions
 		public Region RegionDimension { get; set; }
@@ -103,22 +104,11 @@ namespace SalePlanner.Domain
 			if (region == null) throw new ArgumentNullException("region");
 			if (period == null) throw new ArgumentNullException("period");
 
-			AllocatedAmount = amount;
+			Amount = amount;
 			RegionDimension = region;
 			PeriodDimension = period;
 		}
 
 		#endregion
-
-		public void ReleaseAllocatedAmount(decimal amountToRelease)
-		{
-			if (amountToRelease < 0 || amountToRelease > AllocatedAmount) throw new ArgumentOutOfRangeException("amountToRelease");
-			AllocatedAmount -= amountToRelease;
-		}
-
-		public void ReleaseAllAllocatedAmount()
-		{
-			AllocatedAmount = 0;
-		}
 	}
 }

@@ -60,7 +60,7 @@ namespace SalePlanner.Core.Tests.Unit.Domain
 		}
 
 		[Test]
-		public void Ctor_ForOnlyOneLevelDimension_AllocatesAllAmount()
+		public void Ctor_AllDimensionsHasOnlyOneLevel_AllocatedAmountEqualsToAmount()
 		{
 			// One level dimension means that root is leaf.
 			var amount = 1000m;
@@ -76,6 +76,29 @@ namespace SalePlanner.Core.Tests.Unit.Domain
 			Assert.That(model.AllocatedAmount, Is.EqualTo(amount));
 			Assert.That(model.FreeAmount, Is.EqualTo(0));
 		}
+
+		[Test]
+		public void Ctor_AtLeastOneDimensionHasMoreThanOneLevel_FreeAmountEqualsToAmount()
+		{
+			// One level dimension means that root is leaf.
+			// Region will have more than one level and Period will have one level.
+			var amount = 1000m;
+			var regionRoot = new Region("far far away");
+			new Region("northern lands", regionRoot);
+			new Region("southern lands", regionRoot);
+			var period = new Period("long time ago");
+			var model = new EstimatedSaleCube(amount, regionRoot, period);
+
+			// Check if root is not leaf
+			Assert.That(model.RegionRoot.IsRoot && (model.RegionRoot.IsLeaf == false));
+			// Check if root is leafs
+			Assert.That(model.PeriodRoot.IsRoot && model.PeriodRoot.IsLeaf);
+
+			Assert.That(model.Amount, Is.EqualTo(amount));
+			Assert.That(model.AllocatedAmount, Is.EqualTo(0));
+			Assert.That(model.FreeAmount, Is.EqualTo(amount));
+		}
+
 	}
 
 	public static class EstimatedSaleCubeMother
@@ -97,54 +120,9 @@ namespace SalePlanner.Core.Tests.Unit.Domain
 			var period = PeriodMother.CreateSimpleModel();
 			var model = new EstimatedSaleAllocation(amount, region, period);
 
-			Assert.That(model.AllocatedAmount, Is.EqualTo(amount));
+			Assert.That(model.Amount, Is.EqualTo(amount));
 			Assert.That(model.RegionDimension, Is.EqualTo(region));
 			Assert.That(model.PeriodDimension, Is.EqualTo(period));
-		}
-
-		[Test]
-		public void ReleaseAllAllocatedAmount_MakesAmountEqualToZero_Test()
-		{
-			var model = EstimatedSaleAllocationMother.CreateSimpleModel();
-
-			model.ReleaseAllAllocatedAmount();
-		}
-
-		[Test]
-		[ExpectedException(typeof(ArgumentOutOfRangeException))]
-		public void ReleaseAllocatedAmount_ArgumentLessThanZero_ThrowsArgumentOutOfRangeException_Test()
-		{
-			var model = EstimatedSaleAllocationMother.CreateSimpleModel();
-			var amountToRelease = -1m;
-
-			model.ReleaseAllocatedAmount(amountToRelease);
-		}
-
-		[Test]
-		public void ReleaseAllocatedAmount_CurrentAmountIsGraterThanArgument_DecreasesAmount_Test()
-		{
-			var model = EstimatedSaleAllocationMother.CreateSimpleModel();
-			var initialAmount = model.AllocatedAmount;
-			var amountToRelease = 500m;
-
-			Assert.That(initialAmount, Is.GreaterThan(amountToRelease));
-
-			model.ReleaseAllocatedAmount(amountToRelease);
-
-			Assert.That(model.AllocatedAmount, Is.EqualTo(initialAmount - amountToRelease));
-		}
-
-		[Test]
-		[ExpectedException(typeof(ArgumentOutOfRangeException))]
-		public void ReleaseAllocatedAmount_CurrentAmountIsLessThanArgument_ThrowsArgumentOutOfRangeException_Test()
-		{
-			var model = EstimatedSaleAllocationMother.CreateSimpleModel();
-			var initialAmount = model.AllocatedAmount;
-			var amountToRelease = 1500m;
-
-			Assert.That(initialAmount, Is.LessThan(amountToRelease));
-
-			model.ReleaseAllocatedAmount(amountToRelease);
 		}
 	}
 
