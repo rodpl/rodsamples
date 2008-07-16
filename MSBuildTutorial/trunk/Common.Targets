@@ -10,10 +10,6 @@
 
 	<!-- Add additional depends to Build target -->
 	<PropertyGroup>
-		<CoreCompileDependsOn>
-			SayHi;
-			$(CoreCompileDependsOn)
-		</CoreCompileDependsOn>
 	</PropertyGroup>
 
 	<!-- Import 3rd party targets -->
@@ -23,7 +19,21 @@
 		<Message Text="Project $(ProjectName) says 'HI' to everyone." Importance="High" />
 		<Beep/>
 	</Target>
-	
+
+	<Target Name="Test" DependsOnTargets="Build;GetTestAssemblies" >
+		<CallTarget Targets="InternalNUnit" />
+	</Target>
+
+	<Target Name="GetTestAssemblies" DependsOnTargets="Build">
+		<ItemGroup>
+			<Assemblies Include="$(TargetDir)$(TargetName)*.dll" />
+		</ItemGroup>
+
+		<RegexMatch Input="@(Assemblies)" Expression="$(TestDetectionExpression)[\.]dll$">
+			<Output TaskParameter="Output" ItemName="TestAssemblies"/>
+		</RegexMatch>
+	</Target>
+
 	<!-- User targets can be run as the lastest -->
 	<Import Condition="Exists('$(RootPath)\Common.User.Targets')" Project="$(RootPath)\Common.User.Targets" />
 </Project>
