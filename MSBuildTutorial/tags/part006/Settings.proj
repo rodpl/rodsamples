@@ -1,0 +1,59 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--
+	==================================================
+	    Settings file for VS and external build files
+	==================================================
+-->
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="3.5">
+
+	<!-- ASCII Constants -->
+	<PropertyGroup>
+		<NEW_LINE>%0D%0A</NEW_LINE>
+		<TAB>%09</TAB>
+		<DOUBLE_QUOTES>%22</DOUBLE_QUOTES>
+		<SPACE>%20</SPACE>
+	</PropertyGroup>
+
+	<!-- Root Path definition relative for actual build file -->
+	<PropertyGroup>
+		<RootPath Condition=" '$(RootPath)' == '' ">$(MSBuildProjectDirectory)</RootPath>
+	</PropertyGroup>
+	
+	<!-- Project folders -->
+	<PropertyGroup>
+		<ToolsPath>$(RootPath)\tools</ToolsPath>
+	</PropertyGroup>
+	
+	<!-- Project files -->
+	<PropertyGroup>
+		<TestDetectionExpression>.[\.](Test[s]{0,1})</TestDetectionExpression>
+		<SolutionPath>$(RootPath)\MySolution.sln</SolutionPath>
+	</PropertyGroup>
+
+	<!-- 3rd Party Program Paths -->
+	<PropertyGroup>
+		<MSBuildExtensionsPath Condition="Exists('$(ToolsPath)\msbuild')" >$(ToolsPath)\msbuild</MSBuildExtensionsPath>
+		<NUnitPath>$(ToolsPath)\nunit</NUnitPath>
+	</PropertyGroup>
+
+	<!-- AssemblyInfo Properties -->
+	<PropertyGroup>
+		<AssemblyInfoFile>Properties\AssemblyInfo.cs</AssemblyInfoFile>
+		<AssemblyTitle>MySolution</AssemblyTitle>
+		<AssemblyDescription>Sample application.</AssemblyDescription>
+		<AssemblyCompany>rod</AssemblyCompany>
+		<AssemblyCopyright>Copyright 2008 rod</AssemblyCopyright>
+		<AssemblyKeyFile>$(RootPath)\MySolution.snk</AssemblyKeyFile>
+		<AssemblyProduct>MySolution</AssemblyProduct>
+		<AssemblyVersion>1.0</AssemblyVersion>
+	</PropertyGroup>
+
+	<!-- 
+	Internal tasks
+-->
+	<Target Name="InternalNUnit">
+		<NUnit Condition=" '@(TestAssemblies)' != '' "
+			ToolPath="$(NUnitPath)"
+			Assemblies="@(TestAssemblies)" />
+	</Target>
+</Project>
