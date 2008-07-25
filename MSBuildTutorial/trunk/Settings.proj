@@ -39,7 +39,7 @@
 	<!-- AssemblyInfo Properties -->
 	<PropertyGroup>
 		<AssemblyInfoFile>Properties\AssemblyInfo.cs</AssemblyInfoFile>
-		<AssemblyTitle>MySolution</AssemblyTitle>
+		<AssemblyTitle>MySolution - $(AssemblyTitle)</AssemblyTitle>
 		<AssemblyDescription>Sample application.</AssemblyDescription>
 		<AssemblyCompany>rod</AssemblyCompany>
 		<AssemblyCopyright>Copyright 2008 rod</AssemblyCopyright>

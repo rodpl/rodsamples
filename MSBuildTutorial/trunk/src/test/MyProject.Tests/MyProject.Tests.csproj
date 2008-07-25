@@ -3,7 +3,7 @@
   <!-- Root Path definition relative for actual build file -->
   <PropertyGroup>
     <RootPath Condition=" '$(RootPath)' == '' ">$(MSBuildProjectDirectory)\..\..\..\</RootPath>
-    <AssemblyTitle>$(AssemblyTitle) - Unit Tests for Sample library</AssemblyTitle>
+    <AssemblyTitle>Unit Tests for Sample library</AssemblyTitle>
 		<AssemblyGuid>9EF00937-3345-4359-A74C-32F6347FFB42</AssemblyGuid>
   </PropertyGroup>
   <PropertyGroup>
