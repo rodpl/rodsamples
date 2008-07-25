@@ -9,7 +9,7 @@
 	<Import Project="Settings.proj" />
 
 	<!-- Import 3rd party targets -->
-	<Import Project="$(MSBuildExtensionsPath)\MSBuildCommunityTasks\MSBuild.Community.Tasks.Targets" />
+	<Import Project="$(MSBuildExtensionsPath)\MSBuildCommunityTasks\MSBuild.Community.Tasks.Targets" Condition="$(MSBuildCommunityTasksLib) == ''"/>
 
 <!--
 		Public targets

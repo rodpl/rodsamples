@@ -10,10 +10,15 @@
 
 	<!-- Add additional depends to Build target -->
 	<PropertyGroup>
+		<BuildDependsOn>
+			IncludeGeneratedAssemblyInfo;
+			$(BuildDependsOn)
+		</BuildDependsOn>
 	</PropertyGroup>
 
 	<!-- Import 3rd party targets -->
-	<Import Project="$(MSBuildExtensionsPath)\MSBuildCommunityTasks\MSBuild.Community.Tasks.Targets" />
+	<Import Project="$(MSBuildExtensionsPath)\MSBuildCommunityTasks\MSBuild.Community.Tasks.Targets" Condition="$(MSBuildCommunityTasksLib) == ''"/>
+	<Import Project="$(MSBuildExtensionsPath)\rod.Commons\rod.Commons.Targets" Condition="$(RodCommonsTargetsIsLoaded) == ''" />
 
 	<Target Name="SayHi">
 		<Message Text="Project $(ProjectName) says 'HI' to everyone." Importance="High" />

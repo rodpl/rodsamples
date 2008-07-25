@@ -2,7 +2,9 @@
 <Project ToolsVersion="3.5" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <!-- Root Path definition relative for actual build file -->
   <PropertyGroup>
-    <RootPath Condition=" '$(RootPath)' == '' ">$(MSBuildProjectDirectory)\..\..\..</RootPath>
+    <RootPath Condition=" '$(RootPath)' == '' ">$(MSBuildProjectDirectory)\..\..\..\</RootPath>
+    <AssemblyTitle>$(AssemblyTitle) - Unit Tests for Sample library</AssemblyTitle>
+		<AssemblyGuid>9EF00937-3345-4359-A74C-32F6347FFB42</AssemblyGuid>
   </PropertyGroup>
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -54,7 +56,15 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="SimpleClassTests.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\app\MyProject\MyProject.csproj">
+      <Project>{DFEBF183-313D-4810-8DC6-5C7F521533A3}</Project>
+      <Name>MyProject</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Properties\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(RootPath)\Common.Targets" />

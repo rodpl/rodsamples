@@ -10,6 +10,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BuildFiles", "BuildFiles", 
 		Common.Targets = Common.Targets
 		Common.User.Targets = Common.User.Targets
 		Default.proj = Default.proj
+		tools\msbuild\rod.Commons\rod.Commons.Targets = tools\msbuild\rod.Commons\rod.Commons.Targets
 		Settings.proj = Settings.proj
 	EndProjectSection
 EndProject
