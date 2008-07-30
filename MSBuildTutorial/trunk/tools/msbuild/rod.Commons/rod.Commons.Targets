@@ -124,7 +124,6 @@
 			AssemblyProduct="$(AssemblyProduct)"
 			AssemblyVersion="$(AssemblyVersion)"
 			AssemblyFileVersion="$(AssemblyVersion)"
-			AssemblyKeyFile="$(AssemblyKeyFile)"
 			Guid="$(AssemblyGuid)" />
 	</Target>
 

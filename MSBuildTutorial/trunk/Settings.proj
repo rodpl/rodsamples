@@ -35,6 +35,12 @@
 		<MSBuildExtensionsPath Condition="Exists('$(ToolsPath)\msbuild')" >$(ToolsPath)\msbuild</MSBuildExtensionsPath>
 		<NUnitPath>$(ToolsPath)\nunit</NUnitPath>
 	</PropertyGroup>
+	
+	<!-- Signing Properties-->
+	<PropertyGroup>
+		<SignAssembly>true</SignAssembly>
+		<AssemblyOriginatorKeyFile>$(RootPath)\MySolution.snk</AssemblyOriginatorKeyFile>
+	</PropertyGroup>
 
 	<!-- AssemblyInfo Properties -->
 	<PropertyGroup>
@@ -43,7 +49,6 @@
 		<AssemblyDescription>Sample application.</AssemblyDescription>
 		<AssemblyCompany>rod</AssemblyCompany>
 		<AssemblyCopyright>Copyright 2008 rod</AssemblyCopyright>
-		<AssemblyKeyFile>$(RootPath)\MySolution.snk</AssemblyKeyFile>
 		<AssemblyProduct>MySolution</AssemblyProduct>
 		<AssemblyVersion>1.0</AssemblyVersion>
 	</PropertyGroup>
