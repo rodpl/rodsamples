@@ -6,12 +6,12 @@
 		http://code.google.com/p/rodcommons/
 	===========================================================
 -->
-<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="2.0">
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 
 	<PropertyGroup>
 		<RodCommonsTargetsIsLoaded>1</RodCommonsTargetsIsLoaded>
 	</PropertyGroup>
-	
+
 	<!-- ASCII Constants -->
 	<PropertyGroup>
 		<NEW_LINE>%0D%0A</NEW_LINE>
@@ -19,12 +19,12 @@
 		<DOUBLE_QUOTES>%22</DOUBLE_QUOTES>
 		<SPACE>%20</SPACE>
 	</PropertyGroup>
-	
+
 	<!-- Root Path definition relative for actual build file -->
 	<PropertyGroup>
 		<RootPath Condition=" '$(RootPath)' == '' ">$(MSBuildProjectDirectory)</RootPath>
 	</PropertyGroup>
-		
+
 	<!-- Helper Files -->
 	<PropertyGroup>
 		<IterationNumberFile Condition=" '$(IterationNumberFile)' == '' ">$(RootPath)\IterationNumber.txt</IterationNumberFile>
@@ -70,7 +70,7 @@
 		<!-- Copy content files recursively to _PublishedWebsites\app\ folder -->
 		<Copy SourceFiles="@(Content)" DestinationFolder="$(WebProjectOutputDir)\%(Content.RelativeDir)" />
 	</Target>
-	
+
 	<!-- Gets the iteration number from file -->
 	<Target Name="GetIterationNumber">
 		<!-- Read the the iteration number file contents -->
@@ -111,7 +111,7 @@
 		<CreateItem Include="$(AssemblyInfoFile)">
 			<Output ItemName="Compile" TaskParameter="Include"/>
 		</CreateItem>
-		<Touch Files="$(AssemblyInfoFile)" Time="2000-01-01" />
+		<Touch Files="$(AssemblyInfoFile)" Time="2000-01-01" Condition="$(IsCompileUpToDate) == ''" />
 	</Target>
 
 	<Target Name="GenerateAssemblyInfo" DependsOnTargets="CalculateAssemblyVersion" >
@@ -128,4 +128,35 @@
 			Guid="$(AssemblyGuid)" />
 	</Target>
 
+	<Target Name="SetIsCompileUpToDate" DependsOnTargets="_InitializeIsCompileUpToDate;_CheckIsCompileUpToDate" />
+			
+	<Target Name="_CheckIsCompileUpToDate"
+			Inputs="$(MSBuildAllProjects);
+					@(Compile);
+					@(_CoreCompileResourceInputs);
+					$(ApplicationIcon);
+					$(AssemblyOriginatorKeyFile);
+					@(ReferencePath);
+					@(CompiledLicenseFile);
+					@(EmbeddedDocumentation);
+					$(Win32Resource);
+					$(Win32Manifest);
+					@(CustomAdditionalCompileInputs)"
+			Outputs="@(DocFileItem);
+					@(IntermediateAssembly);
+					@(_DebugSymbolsIntermediatePath);
+					$(NonExistentFile);
+					@(CustomAdditionalCompileOutputs)">
+		<CreateProperty Value="false">
+			<Output PropertyName="IsCompileUpToDate" TaskParameter="ValueSetByTask"/>
+		</CreateProperty>
+		<Message Text="_CheckIsCompileUpToDate $(IsCompileUpToDate)" />
+	</Target>
+
+	<Target Name="_InitializeIsCompileUpToDate">
+		<CreateProperty Value="true" >
+			<Output PropertyName="IsCompileUpToDate" TaskParameter="ValueSetByTask" />
+		</CreateProperty>
+		<Message Text="_InitializeIsCompileUpToDate $(IsCompileUpToDate)" />
+	</Target>
 </Project>
