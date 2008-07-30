@@ -9,6 +9,6 @@
 	<Import Project="Settings.proj" />
 
 	<Target Name="BuildAll">
-		<MSBuild Projects="$(SolutionFileName)" Targets="Build"/>
+		<MSBuild Projects="$(SolutionPath)" Targets="Build"/>
 	</Target>
 </Project>
